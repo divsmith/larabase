@@ -56,4 +56,5 @@ return array(
 			'password' => '',
 			'prefix'   => '',
 		),
+	)
 );
