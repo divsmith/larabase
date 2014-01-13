@@ -24,11 +24,11 @@ $app = new Illuminate\Foundation\Application;
 |
 */
 
-$env = $app->detectEnvironment(array(
-
-	'local' => array('your-machine-name'),
-
-));
+//putenv('ENV=production');
+$env = $app->detectEnvironment(function()
+{
+	return getenv('ENV') ?: 'development';
+});
 
 /*
 |--------------------------------------------------------------------------
