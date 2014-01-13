@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+mysql_password="rootpass"
+
 echo "--- Good morning, master. Let's get to work. Installing now. ---"
 
 echo "--- Updating packages list ---"
@@ -22,11 +24,23 @@ sudo apt-get install -y php5 apache2 libapache2-mod-php5 php5-curl php5-gd php5-
 
 echo "--- MySQL time ---"
 export DEBIAN_FRONTEND=noninteractive
-sudo debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password password rootpass'
-sudo debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password_again password rootpass'
+sudo debconf-set-selections <<< "mysql-server-5.5 mysql-server/root_password password $mysql_password"
+sudo debconf-set-selections <<< "mysql-server-5.5 mysql-server/root_password_again password $mysql_password"
 
 sudo apt-get -y install mysql-server
 sudo apt-get -y install php5-mysql
+
+echo "--- MySQL permissions ---"
+export DEBIAN_FRONTEND=noninteractive
+mysql -uroot -p$mysql_password << END
+
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY "$mysql_password" WITH GRANT OPTION;
+
+END
+
+sudo sed -i 's/^bind-address.*/bind-address = 0.0.0.0/' /etc/mysql/my.cnf
+sudo service mysql restart
 
 echo "--- Installing and configuring Xdebug ---"
 sudo apt-get install -y php5-xdebug
