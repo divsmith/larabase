@@ -4,3 +4,5 @@ composer.phar
 composer.lock
 .DS_Store
 Thumbs.db
+Laravel-Base.sublime-project
+Laravel-Base.sublime-workspace
