@@ -6,3 +6,4 @@ composer.lock
 Thumbs.db
 Laravel-Base.sublime-project
 Laravel-Base.sublime-workspace
+/public/components
