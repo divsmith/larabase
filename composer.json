@@ -4,7 +4,18 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.2.*"
+		"laravel/framework": "4.2.*",
+		"laracasts/commander": "~1.0",
+		"divsmith/illuminate-decouplr": "dev-master@dev",
+		"laracasts/validation": "1.1.*",
+		"laracasts/flash": "~1.0",
+		"laracasts/presenter": "0.1.*"
+	},
+	"require-dev": {
+		"way/generators": "~2.0",
+		"codeception/codeception": "~2.0.3",
+		"laracasts/testdummy": "~1.0",
+		"fzaninotto/faker": "1.4.*"
 	},
 	"autoload": {
 		"classmap": [
