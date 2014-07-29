@@ -8,3 +8,4 @@ composer.lock
 Thumbs.db
 .idea/
 app/assets/components/
+node_modules/
