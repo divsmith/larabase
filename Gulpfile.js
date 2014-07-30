@@ -31,7 +31,7 @@ var paths = {
 		'public/js/**/*.js',
 		'public/css/**/*.css'
 	]
-}	
+};
 
 gulp.task('watch', function() {
 	var queue = sequence(300),
