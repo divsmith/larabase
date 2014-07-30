@@ -9,6 +9,8 @@ var gulp = require('gulp'),
 
 var paths = {
 	js: [
+
+
 		'app/assets/components/jquery/dist/jquery.js',
 		'app/assets/components/bootstrap/dist/js/bootstrap.min.js',
 		'app/assets/js/**/*.js'
@@ -22,8 +24,22 @@ var paths = {
 
 	scss: [
 		'app/assets/scss/**/*.scss'
-	]	
+	],
+
+	reload: [
+		'app/views/**/*.php',
+		'public/js/**/*.js',
+		'public/css/**/*.css'
+	]
 }
+
+gulp.task('reload', function() {
+	var server = livereload();
+
+	watch({glob: paths.reload }, function(file) {
+		server.changed(file.path);
+	});
+});
 
 gulp.task('watch', function() {
 	var queue = sequence(300);
