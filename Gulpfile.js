@@ -3,7 +3,9 @@ var gulp = require('gulp'),
 	livereload = require('gulp-livereload'),
 	minifyCSS = require('gulp-minify-css'),
 	uglify = require('gulp-uglify'),
-	sass = require('gulp-sass');
+	sass = require('gulp-sass'),
+	watch = require('gulp-watch'),
+	sequence = require('gulp-watch-sequence');
 
 var paths = {
 	js: [
@@ -20,8 +22,31 @@ var paths = {
 
 	scss: [
 		'app/assets/scss/**/*.scss'
-	]
+	]	
 }
+
+gulp.task('watch', function() {
+	var queue = sequence(300);
+
+	watch({
+		name: 'js',
+		emitOnGlob: false,
+		glob: paths.js
+	}, queue.getHandler('js'));
+
+	watch({
+		name: 'css',
+		emitOnGlob: false,
+		glob: paths.css
+	}, queue.getHandler('css'));
+
+	watch({
+		name: 'scss',
+		emitOnGlob: false,
+		glob: paths.scss
+	}, queue.getHandler('scss', 'css'));
+
+});
 
 gulp.task('js', function() {
 	gulp.src(paths.js)
@@ -30,7 +55,7 @@ gulp.task('js', function() {
 		.pipe(gulp.dest('./public/js/'));
 });
 
-gulp.task('css', ['scss'], function() {
+gulp.task('css', function() {
 	gulp.src(paths.css)
 		.pipe(concat('build.css'))
 		.pipe(minifyCSS({keepSpecialComments: 0}))
