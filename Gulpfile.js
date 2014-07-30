@@ -31,18 +31,11 @@ var paths = {
 		'public/js/**/*.js',
 		'public/css/**/*.css'
 	]
-}
-
-gulp.task('reload', function() {
-	var server = livereload();
-
-	watch({glob: paths.reload }, function(file) {
-		server.changed(file.path);
-	});
-});
+}	
 
 gulp.task('watch', function() {
-	var queue = sequence(300);
+	var queue = sequence(300),
+		server = livereload();
 
 	watch({
 		name: 'js',
@@ -61,6 +54,14 @@ gulp.task('watch', function() {
 		emitOnGlob: false,
 		glob: paths.scss
 	}, queue.getHandler('scss', 'css'));
+
+	watch({
+		name: 'reload',
+		emitOnGlob: false,
+		glob: paths.reload
+	}, function(file) {
+		server.changed(file.path);
+	});
 
 });
 
