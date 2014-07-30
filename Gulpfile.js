@@ -2,7 +2,8 @@ var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	livereload = require('gulp-livereload'),
 	minifyCSS = require('gulp-minify-css'),
-	uglify = require('gulp-uglify');
+	uglify = require('gulp-uglify'),
+	sass = require('gulp-sass');
 
 var paths = {
 	js: [
@@ -13,7 +14,12 @@ var paths = {
 
 	css: [
 		'app/assets/components/bootstrap/dist/css/bootstrap.min.css',
+		'app/assets/build/*.css',
 		'app/assets/css/**/*.css'
+	],
+
+	scss: [
+		'app/assets/scss/**/*.scss'
 	]
 }
 
@@ -24,9 +30,16 @@ gulp.task('js', function() {
 		.pipe(gulp.dest('./public/js/'));
 });
 
-gulp.task('css', function() {
+gulp.task('css', ['scss'], function() {
 	gulp.src(paths.css)
 		.pipe(concat('build.css'))
 		.pipe(minifyCSS({keepSpecialComments: 0}))
 		.pipe(gulp.dest('./public/css'));
+});
+
+gulp.task('scss', function() {
+	gulp.src(paths.scss)
+		.pipe(sass())
+		.pipe(concat('temp.css'))
+		.pipe(gulp.dest('./app/assets/build/'));
 })
