@@ -7,11 +7,13 @@ var gulp = require('gulp'),
 var paths = {
 	js: [
 		'app/assets/components/jquery/dist/jquery.js',
-		'app/assets/components/bootstrap/dist/js/bootstrap.min.js'
+		'app/assets/components/bootstrap/dist/js/bootstrap.min.js',
+		'app/assets/js/**/*.js'
 	],
 
 	css: [
-		'app/assets/components/bootstrap/dist/css/bootstrap.min.css'
+		'app/assets/components/bootstrap/dist/css/bootstrap.min.css',
+		'app/assets/css/**/*.css'
 	]
 }
 
