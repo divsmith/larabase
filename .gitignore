@@ -9,3 +9,5 @@ Thumbs.db
 .idea/
 app/assets/components/
 node_modules/
+public/js/build.js
+public/css/build.css
