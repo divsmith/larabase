@@ -33,7 +33,7 @@ var paths = {
 	]
 };
 
-gulp.task('watch', function() {
+gulp.task('watch', ['js', 'css', 'scss'], function() {
 	var queue = sequence(300),
 		server = livereload();
 
